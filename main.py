@@ -11,13 +11,16 @@ while True:
     img_type = bytearray(img.read())
     img_np = np.array(img_type, dtype=np.uint8)
     frame = cv2.imdecode(img_np, -1)
-    cv2.imshow('My Smart scanner', frame)
+    frame_convert_color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    frame_blur = cv2.GaussianBlur(frame_convert_color, (5, 5), 0)
+    frame_edge = cv2.Canny(frame_blur, 30, 50)
+    cv2.imshow('My Smart scanner', frame_edge)
     if cv2.waitKey(1) == ord('s'):
         img_pil = Image.fromarray(frame)
         time_str = time.strftime('%Y-%m-%d-%H-%M-%S')
-        img_pil.save('My_Scanned_file.pdf')
+        img_pil.save(f'{time_str}.pdf')
         print(time_str)
-    
+
 
     
    
