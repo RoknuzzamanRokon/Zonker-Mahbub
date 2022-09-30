@@ -2,6 +2,7 @@ import urllib.request as request
 import numpy as np
 import cv2
 from PIL import Image
+import time
 
 url = 'http://192.168.0.110:8080/shot.jpg?rnd=274471'
 
@@ -13,8 +14,9 @@ while True:
     cv2.imshow('My Smart scanner', frame)
     if cv2.waitKey(1) == ord('s'):
         img_pil = Image.fromarray(frame)
+        time_str = time.strftime('%Y-%m-%d-%H-%M-%S')
         img_pil.save('My_Scanned_file.pdf')
-        print("Save")
+        print(time_str)
     
 
     
