@@ -14,6 +14,10 @@ while True:
     frame_convert_color = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     frame_blur = cv2.GaussianBlur(frame_convert_color, (5, 5), 0)
     frame_edge = cv2.Canny(frame_blur, 30, 50)
+    contours, _ = cv2.findContours(frame_edge, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    if contours:
+        max_contour = max(contours, key=cv2.contourArea)
+        
     cv2.imshow('My Smart scanner', frame_edge)
     if cv2.waitKey(1) == ord('s'):
         img_pil = Image.fromarray(frame)
